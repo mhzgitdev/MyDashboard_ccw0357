@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function(spUtil) {
+	/* widget controller */
+	var c = this;
+
+	c.addTodo = function(idx) {
+		spUtil.addInfoMessage('You clicked the Create Todo button!');
+	}
+
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css/>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>mydb-work</id>
+        <internal>false</internal>
+        <link/>
+        <name>Dashboard Work</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+/* populate the 'data' object */
+/* e.g., data.table = $sp.getValue('table'); */
+    
+    data.tasks = getTasks();
+            
+    function getTasks() {
+        //empty array that will hold task objects
+        var taskArr = [];
+        var task = new GlideRecord('task');
+        task.addActiveQuery();
+        task.addQuery('assigned_to', gs.getUser().getID());
+        task.orderByDesc('sys_created_on');
+        task.query();
+        while (task.next()) {
+            //yes this will work
+            console.log('Task number: ' + task.getValue('number'));
+            var taskObj = {};
+            //populate the taskObj with the display values 4 fields listed
+            $sp.getRecordDisplayValues(taskObj, task, 'number,short_description,state,sys_id');
+            //add the url to the form view of the task record
+            taskObj.url = task.getLink(true);
+            //push the object to the array
+            taskArr.push(taskObj);
+        }
+        return taskArr;
+    }
+    
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-04-04 19:12:53</sys_created_on>
+        <sys_id>5dfc4f4d4f155b00f86d89bf0210c72a</sys_id>
+        <sys_mod_count>5</sys_mod_count>
+        <sys_name>Dashboard Work</sys_name>
+        <sys_package display_value="My Dashboard" source="x_snc_my_dashboard">e848ca014f915b00f86d89bf0210c785</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="My Dashboard">e848ca014f915b00f86d89bf0210c785</sys_scope>
+        <sys_update_name>sp_widget_5dfc4f4d4f155b00f86d89bf0210c72a</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-05-10 18:13:20</sys_updated_on>
+        <template><![CDATA[<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4 class="panel-title">
+      ${My Work}
+    </h4>
+  </div>
+  <div ng-show="data.tasks.length == 0" class="panel-body">
+    <div class="row">
+      <div class="col-md-12">
+        ${You don't have any work}
+      </div>
+    </div>
+  </div>
+  <table class="table" ng-show="data.tasks.length > 0">
+    <thead>
+      <tr>
+        <th>${Number}</th>
+        <th>${Short Description}</th>
+        <th>${State}</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="task in data.tasks">
+        <td><a ng-href="{{task.url}}" target="_blank">{{task.number}}</a></td>
+        <td>{{task.short_description}}</td>
+        <td>{{task.state}}</td>
+        <td class="new-todo"><button type="button" class="btn btn-default" ng-click="c.addTodo($index);">
+          ${Create Todo} <i class="fa fa-plus"></i>
+          </button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>]]></template>
+    </sp_widget>
+</record_update>

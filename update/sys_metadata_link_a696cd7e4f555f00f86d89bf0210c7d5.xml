@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_metadata_link">
+    <sys_metadata_link action="INSERT_OR_UPDATE">
+        <directory>update</directory>
+        <documentkey>69444d7e4f555f00f86d89bf0210c7cb</documentkey>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="x_snc_my_dashboard_favorite">
+    <x_snc_my_dashboard_favorite action="INSERT_OR_UPDATE">
+        <name>Developer</name>
+        <order>1200</order>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-04-09 19:45:28</sys_created_on>
+        <sys_id>69444d7e4f555f00f86d89bf0210c7cb</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-04-09 19:45:28</sys_updated_on>
+        <url>https://developer.servicenow.com/</url>
+        <user display_value="System Administrator">6816f79cc0a8016401c5a33be04be441</user>
+    </x_snc_my_dashboard_favorite>
+</record_update>
+]]></payload>
+        <sys_class_name>sys_metadata_link</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-04-09 19:55:14</sys_created_on>
+        <sys_id>a696cd7e4f555f00f86d89bf0210c7d5</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Developer</sys_name>
+        <sys_package display_value="My Dashboard" source="x_snc_my_dashboard">e848ca014f915b00f86d89bf0210c785</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="My Dashboard">e848ca014f915b00f86d89bf0210c785</sys_scope>
+        <sys_update_name>sys_metadata_link_a696cd7e4f555f00f86d89bf0210c7d5</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-04-09 19:55:14</sys_updated_on>
+        <tablename>x_snc_my_dashboard_favorite</tablename>
+    </sys_metadata_link>
+</record_update>

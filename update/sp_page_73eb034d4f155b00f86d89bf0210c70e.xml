@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_page">
+    <sp_page action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <css/>
+        <draft>false</draft>
+        <dynamic_title_structure/>
+        <id>mydb_home</id>
+        <internal>false</internal>
+        <public>false</public>
+        <roles/>
+        <short_description>My Dashboard</short_description>
+        <sys_class_name>sp_page</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-04-04 19:08:44</sys_created_on>
+        <sys_id>73eb034d4f155b00f86d89bf0210c70e</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>mydb_home</sys_name>
+        <sys_package display_value="My Dashboard" source="x_snc_my_dashboard">e848ca014f915b00f86d89bf0210c785</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="My Dashboard">e848ca014f915b00f86d89bf0210c785</sys_scope>
+        <sys_update_name>sp_page_73eb034d4f155b00f86d89bf0210c70e</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-04-04 19:08:44</sys_updated_on>
+        <title>My Dashboard Home</title>
+    </sp_page>
+    <sys_translated_text action="delete_multiple" query="documentkey=73eb034d4f155b00f86d89bf0210c70e"/>
+</record_update>

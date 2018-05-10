@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function($window) {
+	/* widget controller */
+	var c = this;
+
+	c.hi = 'https://hi.service-now.com/hisp?id=hisp_search&s=true&q=';
+	c.search = function(source) {
+		var searchTarget = source + c.searchTerm;
+		$window.open(searchTarget, '_blank')
+	};	
+	c.docs = 'https://docs.servicenow.com/search?fo=no&labels=2&q=';
+	c.developer = 'https://developer.servicenow.com/app.do#!/search?category=All&v=kingston&page=1&q=';
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css/>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>mydb-search</id>
+        <internal>false</internal>
+        <link/>
+        <name>Dashboard Search</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  /* populate the 'data' object */
+  /* e.g., data.table = $sp.getValue('table'); */
+
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-04-04 19:11:37</sys_created_on>
+        <sys_id>dc5cc74d4f155b00f86d89bf0210c742</sys_id>
+        <sys_mod_count>6</sys_mod_count>
+        <sys_name>Dashboard Search</sys_name>
+        <sys_package display_value="My Dashboard" source="x_snc_my_dashboard">e848ca014f915b00f86d89bf0210c785</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="My Dashboard">e848ca014f915b00f86d89bf0210c785</sys_scope>
+        <sys_update_name>sp_widget_dc5cc74d4f155b00f86d89bf0210c742</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-05-10 17:54:15</sys_updated_on>
+        <template><![CDATA[<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4 class="panel-title">
+      ${ServiceNow Search}
+    </h4>
+  </div>
+  <div class="panel-body">
+    <div class="col-md-12">
+      <div class="input-group">
+        <input type="text" class="form-control" aria-label="..." placeholder="Search" ng-model="c.searchTerm">
+        <div class="input-group-btn">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Search Sources <span class="caret"></span></button>
+          <ul class="dropdown-menu dropdown-menu-right">
+            <li><a ng-click="c.search(c.hi);" href="#">Hi</a></li>
+            <li><a ng-click="c.search(c.docs);" href="#">Docs</a></li>
+            <li><a ng-click="c.search(c.developer);" href="#">Developer</a></li>
+          </ul>
+        </div><!-- /btn-group -->
+      </div><!-- /input-group -->
+    </div>
+  </div>
+</div>]]></template>
+    </sp_widget>
+</record_update>

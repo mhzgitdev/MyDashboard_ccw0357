@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="Favorite" max_length="40" name="x_snc_my_dashboard_favorite" type="collection">
+        <element display="true" label="Name" max_length="40" name="name" type="string"/>
+        <element default="1000" label="Order" max_length="40" name="order" type="integer"/>
+        <element label="URL" max_length="1000" name="url" type="url"/>
+        <element default="javascript:gs.getUserID();" dynamic_default_value="2fd8e97bef3221002841f7f775c0fbc1" label="User" max_length="32" name="user" reference="sys_user" type="reference" use_dynamic_default="true"/>
+        <index name="index">
+            <element name="user"/>
+        </index>
+    </element>
+</database>
