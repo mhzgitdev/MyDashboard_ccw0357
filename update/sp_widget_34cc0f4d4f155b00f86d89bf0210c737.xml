@@ -2,7 +2,7 @@
 <record_update table="sp_widget">
     <sp_widget action="INSERT_OR_UPDATE">
         <category>custom</category>
-        <client_script><![CDATA[function($uibModal, $scope) {
+        <client_script><![CDATA[function($uibModal, $scope, spModal) {
 	/* widget controller */
 	var c = this;
 
@@ -36,6 +36,18 @@
 
 	c.closeModal = function() {
 		c.modalInstance.close();
+	}
+
+	c.deleteSymbol = function(idx) {
+		spModal.confirm("Are you sure you want to delete this favorite?").then(function(confirmed){
+			if(confirmed){
+				c.refreshing = true;
+				c.server.get({'deleteSymbol': c.data.stockQuotes[idx].symbol}).then(function(r){
+					c.data.stockQuotes = r.data.stockQuotes;
+					c.refreshing = false;
+				});
+			}
+		});
 	}
 }]]></client_script>
         <controller_as>c</controller_as>
@@ -72,6 +84,9 @@
 		if (input.newSymbol) {
 			createNewSymbol(input.newSymbol);
 		}
+		if (input.deleteSymbol) {
+			deleteSymbol(input.deleteSymbol);
+		}
 		data.symbols = getSymbols();
 		data.stockQuotes = getStockQuotes();
 	}
@@ -104,6 +119,16 @@
 		stock.insert();
 	}
 
+	function deleteSymbol(sym) {
+		var stock = new GlideRecord('x_snc_my_dashboard_stock');
+		stock.addQuery('user', gs.getUser().getID());
+		stock.addQuery('symbols', sym);
+		stock.query();
+		if (stock.next()) {
+			stock.deleteRecord();
+		}
+	}
+
 	function getSymbols() {
 		var stockArr = [];
 		var stock = new GlideRecord('x_snc_my_dashboard_stock');
@@ -121,14 +146,14 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-04-04 19:12:01</sys_created_on>
         <sys_id>34cc0f4d4f155b00f86d89bf0210c737</sys_id>
-        <sys_mod_count>14</sys_mod_count>
+        <sys_mod_count>17</sys_mod_count>
         <sys_name>Dashboard Stock</sys_name>
         <sys_package display_value="My Dashboard" source="x_snc_my_dashboard">e848ca014f915b00f86d89bf0210c785</sys_package>
         <sys_policy/>
         <sys_scope display_value="My Dashboard">e848ca014f915b00f86d89bf0210c785</sys_scope>
         <sys_update_name>sp_widget_34cc0f4d4f155b00f86d89bf0210c737</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-05-10 18:34:28</sys_updated_on>
+        <sys_updated_on>2018-05-10 18:41:05</sys_updated_on>
         <template><![CDATA[<div class="panel panel-default">
   <div class="panel-heading">
     <h4 class="panel-title">
@@ -164,7 +189,9 @@
           <span ng-class="{green:stockQuote.positive, red:!stockQuote.positive}">{{stockQuote.price}}</span>
         </td>
         <td class="delete-cell">
-
+          <button type="button" class="btn btn-default" ng-click="c.deleteSymbol($index);">
+            <i class="fa fa-times"></i>
+          </button>
         </td>
       </tr>
     </tbody>
