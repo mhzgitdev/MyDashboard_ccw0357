@@ -6,6 +6,13 @@
 	/* widget controller */
 	var c = this;
 
+	$rootScope.$on('createTodo', function(event,data) {
+		c.toServer({
+			'text':data,
+			'type':'new'
+		});
+	});
+
 	c.toServer = function(todoObj) {
 		c.server.get(todoObj).then(function(r){
 			c.data.todos = r.data.todos;
@@ -124,14 +131,14 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-04-04 19:12:28</sys_created_on>
         <sys_id>d3dc4f4d4f155b00f86d89bf0210c723</sys_id>
-        <sys_mod_count>8</sys_mod_count>
+        <sys_mod_count>9</sys_mod_count>
         <sys_name>Dashboard ToDos</sys_name>
         <sys_package display_value="My Dashboard" source="x_snc_my_dashboard">e848ca014f915b00f86d89bf0210c785</sys_package>
         <sys_policy/>
         <sys_scope display_value="My Dashboard">e848ca014f915b00f86d89bf0210c785</sys_scope>
         <sys_update_name>sp_widget_d3dc4f4d4f155b00f86d89bf0210c723</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-05-10 18:51:22</sys_updated_on>
+        <sys_updated_on>2018-05-10 18:55:54</sys_updated_on>
         <template><![CDATA[<div class="panel panel-default">
   <div class="panel-heading">
     <h4 class="panel-title">
