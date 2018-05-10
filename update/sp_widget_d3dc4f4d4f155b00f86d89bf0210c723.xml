@@ -2,9 +2,63 @@
 <record_update table="sp_widget">
     <sp_widget action="INSERT_OR_UPDATE">
         <category>custom</category>
-        <client_script><![CDATA[function() {
-  /* widget controller */
-  var c = this;
+        <client_script><![CDATA[function($uibModal, $scope, $rootScope) {
+	/* widget controller */
+	var c = this;
+
+	c.toServer = function(todoObj) {
+		c.server.get(todoObj).then(function(r){
+			c.data.todos = r.data.todos;
+		});
+	};
+
+	c.addTodoModal = function() {
+		c.currentTodo = {
+			'text': '',
+			'state': '',
+			'type': 'new'
+		}
+		c.openModal();
+	}
+
+	c.openTodoModal = function(idx) {
+		c.currentTodo = c.data.todos[idx];
+		c.currentTodo.idx = idx;
+		c.currentTodo.type = 'update';
+		c.openModal();
+	}
+
+	c.openModal = function() {
+		c.modalInstance = $uibModal.open({
+			templateUrl: 'todoModal',
+			scope: $scope
+		});
+	}
+
+	c.closeModal = function() {
+		c.modalInstance.close();
+	}
+
+	c.saveCloseModal = function() {
+		c.modalInstance.close();
+		if (c.currentTodo.type == 'update') {
+			c.updateTodo(c.currentTodo.idx,c.currentTodo.state);
+		}
+		else {
+			c.toServer(c.currentTodo);
+		}
+	}
+
+	c.updateTodo = function(idx,state) {
+		var todoObj = {
+			'sysID': c.data.todos[idx].sys_id,
+			'text': c.data.todos[idx].text,
+			'state': state,
+			'type': 'update'
+		}
+		c.toServer(todoObj);
+	}
+
 }]]></client_script>
         <controller_as>c</controller_as>
         <css/>
@@ -22,8 +76,47 @@
         <public>false</public>
         <roles/>
         <script><![CDATA[(function() {
-  /* populate the 'data' object */
-  /* e.g., data.table = $sp.getValue('table'); */
+
+	if (input) {
+		if (input.type == 'new') {
+			createTodo(input.text);
+		}
+		else if (input.type == 'update') {
+			updateTodo(input);
+		}
+	}
+
+	data.todos = getTodos();
+
+	function getTodos() {
+		var todoArr = [];
+		var todoGR = new GlideRecord('x_snc_my_dashboard_todo');
+		todoGR.addQuery('user', gs.getUser().getID());
+		todoGR.addQuery('state', 'Open');
+		todoGR.orderByDesc('sys_created_on');
+		todoGR.query();
+		while (todoGR.next()) {
+			var todoObj = {};
+			$sp.getRecordDisplayValues(todoObj, todoGR, 'text,state,sys_id');
+			todoArr.push(todoObj);
+		}
+		return todoArr;
+	}
+
+	function createTodo(text) {
+		var todo = new GlideRecord('x_snc_my_dashboard_todo');
+		todo.text = text;
+		todo.insert();
+	}
+
+	function updateTodo(todoObj) {
+		var todo = new GlideRecord('x_snc_my_dashboard_todo');
+		if (todo.get(todoObj.sysID)) {
+			todo.state = todoObj.state;
+			todo.text = todoObj.text;
+			todo.update();
+		}
+	}
 
 })();]]></script>
         <servicenow>false</servicenow>
@@ -31,20 +124,70 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-04-04 19:12:28</sys_created_on>
         <sys_id>d3dc4f4d4f155b00f86d89bf0210c723</sys_id>
-        <sys_mod_count>1</sys_mod_count>
+        <sys_mod_count>8</sys_mod_count>
         <sys_name>Dashboard ToDos</sys_name>
         <sys_package display_value="My Dashboard" source="x_snc_my_dashboard">e848ca014f915b00f86d89bf0210c785</sys_package>
         <sys_policy/>
         <sys_scope display_value="My Dashboard">e848ca014f915b00f86d89bf0210c785</sys_scope>
         <sys_update_name>sp_widget_d3dc4f4d4f155b00f86d89bf0210c723</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-04-04 19:12:49</sys_updated_on>
+        <sys_updated_on>2018-05-10 18:51:22</sys_updated_on>
         <template><![CDATA[<div class="panel panel-default">
   <div class="panel-heading">
     <h4 class="panel-title">
-      ${My ToDos}
+      ${My ToDos} 
+      <button class="btn btn-default" ng-click="c.addTodoModal();"><i class="fa fa-plus"></i></button>
     </h4>
   </div>
-</div>]]></template>
+  <div ng-show="data.todos.length == 0" class="panel-body">
+    <div class="row">
+      <div class="col-md-12">
+        ${Add a new ToDo}
+      </div>
+    </div>
+  </div>
+  <ul ng-show="data.todos.length > 0" class="list-group">
+    <li ng-repeat="todo in data.todos" class="list-group-item">
+      <div class="row">
+        <div class="col-md-8">
+          <h5>
+            {{todo.text}}
+          </h5>
+        </div>
+        <div class="col-md-4">
+        <div class="btn-group pull-right" role="group" aria-label="...">
+            <button type="button" class="btn btn-default" ng-click="c.updateTodo($index,'Complete');">
+                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+            </button>
+            <button type="button" class="btn btn-default" ng-click="c.openTodoModal($index);">
+                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+            </button>
+            <button type="button" class="btn btn-default" ng-click="c.updateTodo($index,'Cancelled');">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+            </button>
+        </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
+<script type="text/ng-template" id="todoModal">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">${Add/Edit Todo}</h4>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <input ng-model="c.currentTodo.text" class="form-control" />
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer text-right">
+            <button class="btn btn-primary" ng-click="c.saveCloseModal();">${Save and Close}</button>
+            <button class="btn btn-primary" ng-click="c.closeModal();">${Close}</button>
+        </div>
+    </div>
+</script>]]></template>
     </sp_widget>
 </record_update>
