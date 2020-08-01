@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<record_update table="sp_portal">
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_portal">
     <sp_portal action="INSERT_OR_UPDATE">
         <css_variables/>
         <default>false</default>
+        <hide_portal_name>false</hide_portal_name>
         <homepage display_value="mydb_home">73eb034d4f155b00f86d89bf0210c70e</homepage>
         <icon/>
         <kb_knowledge_base/>
@@ -31,6 +31,7 @@
         <sys_updated_on>2018-04-04 19:15:04</sys_updated_on>
         <theme/>
         <title>My Dashboard</title>
+        <ts_index_group/>
         <url_suffix>mydashboard</url_suffix>
     </sp_portal>
     <sys_translated_text action="delete_multiple" query="documentkey=e58b4f0d4f155b00f86d89bf0210c7a3"/>

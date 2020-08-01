@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<record_update table="sp_page">
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_page">
     <sp_page action="INSERT_OR_UPDATE">
         <category>custom</category>
         <css/>
@@ -7,8 +6,10 @@
         <dynamic_title_structure/>
         <id>mydb_home</id>
         <internal>false</internal>
+        <omit_watcher>false</omit_watcher>
         <public>false</public>
         <roles/>
+        <seo_script/>
         <short_description>My Dashboard</short_description>
         <sys_class_name>sp_page</sys_class_name>
         <sys_created_by>admin</sys_created_by>
@@ -23,6 +24,7 @@
         <sys_updated_by>admin</sys_updated_by>
         <sys_updated_on>2018-04-04 19:08:44</sys_updated_on>
         <title>My Dashboard Home</title>
+        <use_seo_script>false</use_seo_script>
     </sp_page>
     <sys_translated_text action="delete_multiple" query="documentkey=73eb034d4f155b00f86d89bf0210c70e"/>
 </record_update>

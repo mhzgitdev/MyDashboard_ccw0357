@@ -1,12 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<database>
+<?xml version="1.0" encoding="UTF-8"?><database>
     <element label="ToDo" max_length="40" name="x_snc_my_dashboard_todo" type="collection">
         <element default="javascript:getNextObjNumberPadded();" display="true" dynamic_default_value="fdcb83a85f220100a9ad2572f2b4773c" label="Number" max_length="40" name="number" type="string" use_dynamic_default="true"/>
         <element choice="1" default="Open" label="State" max_length="40" name="state" type="choice">
             <choice>
-                <element label="Open" sequence="0" value="Open"/>
-                <element label="Complete" sequence="1" value="Complete"/>
-                <element label="Cancelled" sequence="2" value="Cancelled"/>
+                <element inactive_on_update="false" label="Open" sequence="0" value="Open"/>
+                <element inactive_on_update="false" label="Complete" sequence="1" value="Complete"/>
+                <element inactive_on_update="false" label="Cancelled" sequence="2" value="Cancelled"/>
             </choice>
         </element>
         <element label="Text" max_length="100" name="text" type="string"/>

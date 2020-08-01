@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<record_update>
+<?xml version="1.0" encoding="UTF-8"?><record_update>
     <sys_documentation element="state" label="State" language="en" table="x_snc_my_dashboard_todo">
         <sys_documentation action="INSERT_OR_UPDATE">
             <element>state</element>
@@ -12,7 +11,7 @@
             <sys_class_name>sys_documentation</sys_class_name>
             <sys_created_by>admin</sys_created_by>
             <sys_created_on>2018-04-04 14:20:51</sys_created_on>
-            <sys_id>6b1ace814f915b00f86d89bf0210c717</sys_id>
+            <sys_id>74e6787edb121010d2761fc7689619c9</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_name>State</sys_name>
             <sys_package display_value="My Dashboard" source="x_snc_my_dashboard">e848ca014f915b00f86d89bf0210c785</sys_package>

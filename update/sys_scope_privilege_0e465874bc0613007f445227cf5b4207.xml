@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<record_update table="sys_scope_privilege">
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_scope_privilege">
     <sys_scope_privilege action="INSERT_OR_UPDATE">
         <operation>read</operation>
         <source_scope display_value="My Dashboard">e848ca014f915b00f86d89bf0210c785</source_scope>
